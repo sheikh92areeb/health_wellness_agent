@@ -1,4 +1,4 @@
-from openai import Tool
+from agents import Tool
 from pydantic import BaseModel
 from guardrails import validate_goal_input
 

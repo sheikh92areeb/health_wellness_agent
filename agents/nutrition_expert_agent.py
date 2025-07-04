@@ -1,4 +1,4 @@
-from openai import Agent
+from agents import Agent
 
 nutrition_expert_agent = Agent(
     name="NutritionExpertAgent",

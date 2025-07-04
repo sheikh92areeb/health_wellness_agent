@@ -1,4 +1,4 @@
-from openai import Agent
+from agents import Agent
 
 esclation_agent = Agent(
     name = "EscalationAgent",

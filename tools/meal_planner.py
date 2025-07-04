@@ -1,4 +1,4 @@
-from openai import Tool
+from agents import Tool
 from typing import List
 import asyncio
 

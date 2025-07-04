@@ -1,4 +1,4 @@
-from openai import Tool
+from agents import Tool
 
 class ProgressTrackerTool(Tool):
     name = "ProgressTrackerTool"
