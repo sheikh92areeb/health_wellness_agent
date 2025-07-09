@@ -1,30 +1,26 @@
+import os
+from dotenv import load_dotenv
 from agents import Agent
-from hooks import global_hooks
-from context import UserSessionContext
-from tools.goal_analyzer import GoalAnalyzerTool
-from tools.meal_planner import MealPlannerTool
-from tools.workout_recommender import WorkoutRecommenderTool
-from tools.scheduler import CheckinSchedulerTool
-from tools.tracker import ProgressTrackerTool
-from agents.escalation_agent import esclation_agent
-from agents.injury_support_agent import injury_support_agent
-from agents.nutrition_expert_agent import nutrition_expert_agent
+from handoffs_agents import escalation_agent, injury_support_agent, nutrition_expert_agent
 
-def build_health_wellness_agent():
+load_dotenv()
+gemini_model = os.getenv("GEMINI_MODEL")
+
+def build_health_welness_agent():
     return Agent(
-        name="HealthWellnessPlannerAgent",
-        instructions="Assist users with fitness, dietary planning, progress tracking, and more.",
-        tools=[
-            GoalAnalyzerTool(),
-            MealPlannerTool(),
-            WorkoutRecommenderTool(),
-            CheckinSchedulerTool(),
-            ProgressTrackerTool()
+        name='health_welness_agent',
+        instructions=(
+            "You are a helpful and supportive Health and Wellness AI Agent. "
+            "Assist users in their fitness, diet, mental well-being, and physical routine goals. "
+            "Use tools like goal analysis, meal planning, scheduling, and workout recommendations. "
+            "Track progress and hand off complex tasks to specialist agents. "
+            "Be empathetic, motivational, and avoid giving medical advice."
+        ),
+        tools=[],
+        handoffs=[
+            escalation_agent,
+            injury_support_agent,
+            nutrition_expert_agent
         ],
-        handoffs = {
-            "escalation": esclation_agent,
-            "injury_support": injury_support_agent,
-            "nutrition_expert": nutrition_expert_agent
-        },
-        hooks=global_hooks,
+        model=gemini_model
     )
