@@ -24,14 +24,14 @@ async def main():
 
     result = Runner.run_streamed(
         agent,
-        "I have injury in my hand?"
+        "in 3 months loose 10kg"
     )
 
     async for event in result.stream_events():
         if event.type == 'raw_response_event' and isinstance(event.data, ResponseTextDeltaEvent):
             print(event.data.delta, end="", flush=True)
 
-    print(result)
+    print("\n", result, "\n")
 
 if __name__ == "__main__":
     asyncio.run(main())

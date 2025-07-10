@@ -1,7 +1,10 @@
 import os
 from dotenv import load_dotenv
 from agents import Agent
-from handoffs_agents import escalation_agent, injury_support_agent, nutrition_expert_agent
+from handoffs_agents.escalation_agent import escalation_agent 
+from handoffs_agents.injury_support_agent import injury_support_agent
+from handoffs_agents.nutrition_expert_agent import nutrition_expert_agent
+from tools.goal_analyzer import goal_analyzer
 
 load_dotenv()
 gemini_model = os.getenv("GEMINI_MODEL")
@@ -16,7 +19,9 @@ def build_health_welness_agent():
             "Track progress and hand off complex tasks to specialist agents. "
             "Be empathetic, motivational, and avoid giving medical advice."
         ),
-        tools=[],
+        tools=[
+            goal_analyzer
+        ],
         handoffs=[
             escalation_agent,
             injury_support_agent,
