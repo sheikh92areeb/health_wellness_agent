@@ -5,6 +5,10 @@ from handoffs_agents.escalation_agent import escalation_agent
 from handoffs_agents.injury_support_agent import injury_support_agent
 from handoffs_agents.nutrition_expert_agent import nutrition_expert_agent
 from tools.goal_analyzer import goal_analyzer
+from tools.meal_planner import meal_planner
+from tools.workout_recommender import workout_recommender
+from tools.scheduler import scheduler
+from tools.tracker import tracker
 
 load_dotenv()
 gemini_model = os.getenv("GEMINI_MODEL")
@@ -20,7 +24,11 @@ def build_health_welness_agent():
             "Be empathetic, motivational, and avoid giving medical advice."
         ),
         tools=[
-            goal_analyzer
+            goal_analyzer,
+            meal_planner,
+            workout_recommender,
+            scheduler,
+            tracker
         ],
         handoffs=[
             escalation_agent,
