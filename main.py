@@ -1,24 +1,12 @@
-import os
 import asyncio
-from dotenv import load_dotenv
-from agents import Runner, AsyncOpenAI, set_default_openai_client, set_tracing_disabled, set_default_openai_api
+import config
+from agents import Runner
 from agent import build_health_welness_agent
 from context import get_user_context
 from hooks import run_hooks
 from utils.streaming import stream_agent_output
 
-load_dotenv()
-gemini_api_key = os.getenv("GEMINI_API_KEY")
 
-set_tracing_disabled(True)
-set_default_openai_api('chat_completions')
-
-external_client = AsyncOpenAI(
-    api_key=gemini_api_key,
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
-)
-
-set_default_openai_client(external_client)
 
 def run_cli():
     context = get_user_context()
