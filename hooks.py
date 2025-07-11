@@ -7,6 +7,10 @@ class LoggingRunHooks(RunHooks):
     async def on_tool_end(self, context, agent, tool, result):
         print(f"[HOOK] Tool '{tool.name}' returned: {result}")
 
+    async def on_handoff(self, handoff_call, context):
+        context.handoff_logs.append(f"Handoff to {handoff_call.target.name}")
+        print(f"[HOOK] Handoff to {handoff_call.target.name}.")
+
 class LoggingAgentHooks(AgentHooks):
     async def on_start(self, context, agent):
         print(f"[AGENT HOOK] Starting agent: {agent.name}")

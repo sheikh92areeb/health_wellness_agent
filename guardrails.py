@@ -1,13 +1,13 @@
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, ValidationError, ConfigDict
 
 def validate_goal_input(goal_text: str):
     import re
     pattern = r"(\d+)(kg|lbs|pounds) in (\d+) (days|weeks|months)"
     return bool(re.search(pattern, goal_text.lower()))
 
-
-class StructuredGaol(BaseModel):
+class StructuredGoal(BaseModel):
     structured_goal: dict
+    model_config = ConfigDict(extra="forbid")
     
 def enforce_output_structure(data, model):
     try:

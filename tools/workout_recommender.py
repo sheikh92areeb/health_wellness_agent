@@ -1,12 +1,16 @@
 from agents import function_tool
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import List
+
+class WorkoutInput(BaseModel):
+    model_config = ConfigDict(extra="forbid")
 
 class WorkoutPlan(BaseModel):
     weekly_plan: List[str]
+    model_config = ConfigDict(extra="forbid")
 
 @function_tool
-async def workout_recommender(input: dict, context) -> WorkoutPlan:
+async def workout_recommender(input: WorkoutInput, context) -> WorkoutPlan:
     goal_data = context.goal or {}
     goal_text = goal_data.get("goal_text", "").lower()
 
