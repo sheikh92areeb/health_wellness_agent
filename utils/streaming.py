@@ -9,5 +9,7 @@ def stream_response(response_iter):
 # ✅ Async generator for OpenAI Agent streaming events
 async def stream_agent_output(result) -> AsyncGenerator[str, None]:
     async for event in result.stream_events():
+        print("EVENT:", event) 
         if hasattr(event, "pretty_output") and event.pretty_output:
+            print("YIELDING:", event.pretty_output)
             yield event.pretty_output
